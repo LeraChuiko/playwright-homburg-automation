@@ -5,19 +5,19 @@ export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   reporter: 'html',
-  
+
   use: {
-    trace: 'on-first-retry',
-    video: 'on',      // Прямое включение видео
-    screenshot: 'on', // Прямое включение скриншотов
-},
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+  },
 
   projects: [
     {
       name: 'Desktop Chrome',
-      use: { 
+      use: {
         ...devices['Desktop Chrome'],
-        viewport: { width: 1920, height: 1080 } 
+        viewport: { width: 1920, height: 1080 },
       },
     },
     {

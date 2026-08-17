@@ -1,20 +1,14 @@
 {
-  "name": "pw",
+  "name": "homburg-booking-e2e-tests",
   "version": "1.0.0",
-  "description": "",
-  "main": "booking.spec.js",
+  "description": "E2E Playwright test suite for Homburg appointment booking portal",
   "scripts": {
     "test": "playwright test",
     "test:ui": "playwright test --ui",
-    "test:headed": "playwright test --headed",
     "report": "playwright show-report"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
+  "license": "MIT",
   "devDependencies": {
-    "@playwright/test": "^1.60.0",
-    "@types/node": "^25.9.1"
+    "@playwright/test": "^1.40.0"
   }
 }
