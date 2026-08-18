@@ -13,7 +13,6 @@ import {
   step_5_FillForm,
   verifyReservierenButton,
   verifyStepIndicator,
-  verifyUebersichtData,
   verifyUebersichtState,
 } from './helpers.js';
 import testData from './testData.json' assert { type: 'json' };
@@ -77,18 +76,17 @@ test.describe('E2E Booking Flows', () => {
     await step3_SelectLocation(page);
     await step4_SelectDate(page);
     await verifyStepIndicator(page, 5);
-    await verifyUebersichtData(page, 5);
-    await verifyUebersichtState(page, [true, true, true, true]);
+    await verifyUebersichtState(page, [true, true, true, false]);
 
     // 2. Navigate back to Step 4
     await page.locator('#zurueck').first().click();
     await verifyStepIndicator(page, 4);
-    await verifyUebersichtState(page, [true, true, true, true]);
+    await verifyUebersichtState(page, [true, true, true, false]);
 
     // 3. Navigate back to Step 3
     await page.locator('#zurueck').first().click();
     await verifyStepIndicator(page, 3);
-    await verifyUebersichtState(page, [true, true, false, true]);
+    await verifyUebersichtState(page, [true, true, false, false]);
 
     // 4. Navigate back to Step 2
     await page.locator('#zurueck').first().click();

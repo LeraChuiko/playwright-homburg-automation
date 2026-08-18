@@ -1,32 +1,3 @@
-// import { test, expect } from '@playwright/test';
-// import {
-//   setupPage,
-//   verifyStep,
-//   step_1_SelectDepartment,
-//   step2_SelectAnliegen,
-//   clickWeiter,
-//   closeHinweis,
-//   ensureWeiterButtonState,
-//   checkInputValue,
-//   step3_SelectLocation,
-//   step4_SelectDate,
-//   step_5_FillForm,
-//   verifyReservierenButton,
-//   verifyLogo,
-//   verifyKontrastBtnAn,
-//   verifyKontrastBtnAus,
-//   verifySprachBtnAn,
-//   verifySprachBtnAus,
-//   verifyFooterLinksFunctional,
-//   verifyFooterLinksVisible,
-//   verifyStepIndicator,
-//   verifyUebersichtData,
-//   validateField,
-//   runNegativeChecks,
-//   verifyUebersichtState,
-//   getFormattedFutureDate,
-// } from './helpers.js';
-//import testData from './testData.json' assert { type: 'json' };
 import { test, expect } from '@playwright/test';
 import { setupPage } from './helpers.js';
 

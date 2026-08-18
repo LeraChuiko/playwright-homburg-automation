@@ -11,7 +11,6 @@ import {
   step3_SelectLocation,
   step4_SelectDate,
 } from './helpers.js';
-import testData from './testData.json' assert { type: 'json' };
 
 test.describe('Session & Timeout Management', () => {
   test.beforeEach(async ({ page }) => {
@@ -19,8 +18,6 @@ test.describe('Session & Timeout Management', () => {
   });
 
   test('TS_09 - Session: Warning & Extension', async ({ page }) => {
-    await page.clock.install();
-
     await setupPage(page);
     await step_1_SelectDepartment(page, 'Bürgeramt');
     await step2_SelectAnliegen(page);
@@ -58,8 +55,6 @@ test.describe('Session & Timeout Management', () => {
   });
 
   test('TS_10 - Session: Timeout Expiration', async ({ page }) => {
-    await page.clock.install();
-
     await setupPage(page);
     await step_1_SelectDepartment(page, 'Bürgeramt');
     await step2_SelectAnliegen(page);
