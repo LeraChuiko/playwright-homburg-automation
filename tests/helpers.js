@@ -16,15 +16,9 @@ const LOCATORS = {
   langSelectBtn: 'button[aria-label="Sprache wählen"]',
 };
 
-// export async function setupPage(page) {
-//   await page.goto("https://termine-reservieren.de/termine/homburg/");
-//   await page.getByRole("button", { name: "Akzeptieren" }).click();
-// }
-
 export async function setupPage(page) {
   await page.goto('https://termine-reservieren.de/termine/homburg/', {
     waitUntil: 'domcontentloaded',
-    //timeout: 5000,
   });
   await page.getByRole('button', { name: 'Akzeptieren' }).click();
 }
@@ -86,47 +80,38 @@ export async function step3_SelectLocation(page) {
   await page.getByRole('button', { name: 'Standort auswählen' }).click();
 }
 
-// export async function step4_SelectDate(page) {
-//   const firstAvailableSlot = page
-//     .locator('.suggest_btn:not([disabled])')
-//     .first();
-//   const noSlotsMessage = page.getByText('Kein freier Termin verfügbar');
-//   await firstAvailableSlot.waitFor({ state: 'visible' });
-
-//   if (await firstAvailableSlot.count()) {
-//     await firstAvailableSlot.click();
-//     await expect(page.getByRole('heading', { name: 'Hinweis' })).toBeVisible();
-//     await page.getByRole('button', { name: 'Ja' }).click();
-//   } else if (await noSlotsMessage.isVisible()) {
-//     console.log('Kein freier Termin verfügbar');
-//     test.skip(true, 'Skipped');
-//   }
-// }
-
 export async function step4_SelectDate(page) {
+  let mockWasCalled = false;
+
+  await page.route('**/termine/homburg/suggest', async (route) => {
+    mockWasCalled = true;
+
+    await route.fulfill({
+      status: 302,
+      headers: {
+        location:
+          'https://termine-reservieren.de/termine/homburg/personaldata?',
+      },
+      body: '',
+    });
+  });
+
   const firstAvailableSlot = page
     .locator('.suggest_btn:not([disabled])')
     .first();
-  const noSlotsMessage = page.getByText('Kein freier Termin verfügbar');
 
-  // Ждем появления либо слота, либо сообщения об отсутствии слотов
-  await Promise.race([
-    firstAvailableSlot
-      .waitFor({ state: 'visible', timeout: 10000 })
-      .catch(() => {}),
-    noSlotsMessage
-      .waitFor({ state: 'visible', timeout: 10000 })
-      .catch(() => {}),
-  ]);
+  await firstAvailableSlot.waitFor({
+    state: 'visible',
+    timeout: 5000,
+  });
 
-  if (await firstAvailableSlot.isVisible()) {
-    await firstAvailableSlot.click();
-    await expect(page.getByRole('heading', { name: 'Hinweis' })).toBeVisible();
-    await page.getByRole('button', { name: 'Ja' }).click();
-  } else if (await noSlotsMessage.isVisible()) {
-    console.log('Kein freier Termin verfügbar');
-    test.skip(true, 'Skipped: No available slots found in calendar');
-  }
+  await firstAvailableSlot.click();
+
+  await expect(page.getByRole('heading', { name: 'Hinweis' })).toBeVisible();
+
+  await page.getByRole('button', { name: 'Ja' }).click();
+
+  expect(mockWasCalled).toBe(true);
 }
 
 export async function step_5_FillForm(page, data) {
@@ -154,25 +139,6 @@ export async function verifyStep(page, stepNumber) {
 export async function clickWeiter(page) {
   await page.getByRole('button', { name: 'Weiter' }).click();
 }
-
-// export async function runNegativeChecks(page) {
-//   await test.step('Validate all fields from JSON', async () => {
-//     for (const field of testData.invalidFields) {
-//       await validateField(page, field);
-//     }
-//   });
-
-//   await test.step('Security Check: XSS Injection', async () => {
-//     const vornameInput = page.locator('#vorname');
-//     await vornameInput.fill('<script>alert("xss")</script>');
-//     await page.keyboard.press('Tab');
-//     await expect(vornameInput).toHaveClass(/wrongvalidate/);
-//   });
-
-//   await test.step('Verify Submit button is disabled', async () => {
-//     await expect(getSubmitButton(page)).toBeDisabled();
-//   });
-// }
 
 /**
  * @param {boolean} shouldBeEnabled - true (active), false (desabled)

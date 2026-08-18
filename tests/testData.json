@@ -2,7 +2,7 @@
   "happyPath_Buergeramt": {
     "vorname": "Vorname",
     "nachname": "nachname",
-    "email": "orname@mail.com",
+    "email": "vorname@mail.com",
     "year": "2001",
     "plz": "",
     "wohnort": ""
@@ -10,19 +10,19 @@
   "happyPath_Fahrerlaubnis": {
     "vorname": "Vorname",
     "nachname": "nachname",
-    "email": "orname@mail.com",
+    "email": "vorname@mail.com",
     "year": "2001",
     "plz": "66322",
     "wohnort": "Ort"
   },
 
   "incompleteData": {
-      "vorname": "Vorname",
+    "vorname": "Vorname",
     "nachname": "nachname",
-    "email": "orname@mail.com",
+    "email": "vorname@mail.com",
     "year": "2001",
     "plz": "66322",
-  "wohnort": ""
+    "wohnort": ""
   },
 
   "positiveTests": {
