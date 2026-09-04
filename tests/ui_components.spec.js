@@ -23,7 +23,6 @@ import {
   getCounterInput,
   getFormattedFutureDate,
 } from './helpers.js';
-import testData from './testData.json' assert { type: 'json' };
 
 test.describe('UI Components & Consistency', () => {
   test('TS_02 - UI: Service Counter Limits', async ({ page }) => {
@@ -93,9 +92,7 @@ test.describe('UI Components & Consistency', () => {
     await expect(page.getByText('Zeitraum')).toBeVisible();
 
     const formatedFutureDate = getFormattedFutureDate(21);
-    await expect(page.locator('input[name="filter_date_to"]')).toHaveValue(
-      formatedFutureDate,
-    );
+    await expect(page.locator('input[name="filter_date_to"]')).toHaveValue(formatedFutureDate);
 
     // --- Filter Application ---
     await page.locator('#suggest_filter_timespan summary').click();
@@ -106,15 +103,11 @@ test.describe('UI Components & Consistency', () => {
     // --------------------------
 
     // Define filter result locators
-    const firstAvailableSlot = page
-      .locator('.suggest_btn:not([disabled])')
-      .first();
-    const noSlotsMessage = page.getByText('Kein freier Termin verfügbar');
+    const firstAvailableSlot = page.locator('.suggest_btn:not([disabled])').first();
+    //const noSlotsMessage = page.getByText('Kein freier Termin verfügbar');
     if (await firstAvailableSlot.isVisible()) {
       await firstAvailableSlot.click();
-      await expect(
-        page.getByRole('heading', { name: 'Hinweis' }),
-      ).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Hinweis' })).toBeVisible();
       await page.getByRole('button', { name: 'Ja' }).click();
       await verifyStep(page, '5');
     } else {

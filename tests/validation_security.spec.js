@@ -11,7 +11,7 @@ import {
   verifyReservierenButton,
   validateField,
 } from './helpers.js';
-import testData from './testData.json' assert { type: 'json' };
+import testData from './testData.json' with { type: 'json' };
 
 test.describe('Security & Validation', () => {
   test('TS_07 - Security: Deep Linking Protection', async ({ page }) => {

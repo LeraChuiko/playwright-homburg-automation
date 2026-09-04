@@ -15,7 +15,7 @@ import {
   verifyStepIndicator,
   verifyUebersichtState,
 } from './helpers.js';
-import testData from './testData.json' assert { type: 'json' };
+import testData from './testData.json' with { type: 'json' };
 
 test.describe('E2E Booking Flows', () => {
   test('TS_01_A - E2E Flow: Bürgeramt', async ({ page }) => {
